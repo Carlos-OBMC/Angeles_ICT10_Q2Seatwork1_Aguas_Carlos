@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICT Club Verification</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- PyScript -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.11.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.11.1/core.js"></script>
+
+    <style>
+        /* General page styling */
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f1f3f6;
+            font-family: Arial, sans-serif;
+            color: #172b4d;
+        }
+
+        /* Header */
+        header {
+            background-color: #172b4d;
+            color: white;
+            padding: 22px;
+            text-align: center;
+            border-bottom: 5px solid #ffc83d;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        header p {
+            margin: 6px 0 0;
+            color: #d5deeb;
+            font-size: 14px;
+        }
+
+        /* Main content */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 35px 15px;
+        }
+
+        .verification-card {
+            width: 100%;
+            max-width: 460px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            border: 1px solid #d8dee8;
+            box-shadow: 0 4px 14px #172b4d12;
+        }
+
+        .verification-card h2 {
+            text-align: center;
+            font-size: 23px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .description {
+            text-align: center;
+            color: #68758a;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        /* Input fields */
+        .form-label {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .form-control {
+            padding: 12px;
+            border: 1px solid #cbd3df;
+            border-radius: 7px;
+            margin-bottom: 15px;
+        }
+
+        .form-control:focus {
+            border-color: #315b91;
+            box-shadow: 0 0 0 3px #315b9120;
+        }
+
+        /* Verify button */
+        .verify-button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            background-color: #172b4d;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .verify-button:hover {
+            background-color: #284775;
+        }
+
+        /* Result message */
+        .result-box {
+            margin-top: 22px;
+            padding: 16px;
+            background-color: #fff8df;
+            border-left: 5px solid #ffc83d;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            color: #172b4d;
+        }
+
+        .result-box.success {
+            background-color: #e7f7ed;
+            border-left-color: #279653;
+            color: #176b37;
+        }
+
+        .result-box.error {
+            background-color: #fff0f0;
+            border-left-color: #d94141;
+            color: #a32222;
+        }
+
+        /* Footer */
+        footer {
+            padding: 16px;
+            text-align: center;
+            background-color: #172b4d;
+            color: white;
+            font-size: 13px;
+        }
+
+        footer span {
+            color: #ffc83d;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Website header -->
+    <header>
+        <h1>ICT CLUB</h1>
+        <p>LEARN • CREATE • INNOVATE</p>
+    </header>
+
+    <!-- Verification form -->
+    <main>
+        <section class="verification-card">
+            <h2>Candidate Verification</h2>
+            <p class="description">
+                Check if you are a member of the ICT Club.
+            </p>
+
+            <form id="candidate-form">
+                <!-- First name input -->
+                <label for="first-name" class="form-label">
+                    First Name
+                </label>
+                <input
+                    type="text"
+                    id="first-name"
+                    class="form-control"
+                    placeholder="Enter your first name"
+                    required
+                >
+
+                <!-- Last name input -->
+                <label for="last-name" class="form-label">
+                    Last Name
+                </label>
+                <input
+                    type="text"
+                    id="last-name"
+                    class="form-control"
+                    placeholder="Enter your last name"
+                    required
+                >
+
+                <!-- Submit button -->
+                <button type="submit" class="verify-button">
+                    VERIFY CANDIDATE
+                </button>
+            </form>
+
+            <!-- Result message appears here -->
+            <div id="result" class="result-box" role="status" aria-live="polite">
+                Enter your name to check your membership.
+            </div>
+        </section>
+    </main>
+
+    <!-- Website footer -->
+    <footer>
+        © 2026 <span>ICT Club</span> | ICT10 Seatwork 1
+    </footer>
+
+    <!-- Python code -->
+    <py-script>
+from pyscript import document
+
+# List of ICT Club members
+club_members = [
+    "Josua Ortiz",
+    "Carlos Aguas",
+    "Maria Santos",
+    "John Reyes",
+    "Angela Cruz"
+]
+
+def verify_candidate(event):
+    # Prevent the webpage from refreshing
+    event.preventDefault()
+
+    # Get the names entered by the candidate
+    first_name = document.querySelector("#first-name").value.strip()
+    last_name = document.querySelector("#last-name").value.strip()
+
+    # Combine the first name and last name
+    candidate_name = f"{first_name} {last_name}".strip()
+
+    # Check whether the candidate is a club member
+    is_member = candidate_name.casefold() in [
+        member.casefold() for member in club_members
+    ]
+
+    # Select a message without using if or else statements
+    messages = {
+        True: f"Congratulations {candidate_name}! You are now part of the ICT club.",
+        False: f"Sorry {candidate_name}, your name is not on the list."
+    }
+
+    # Display the result
+    result_box = document.querySelector("#result")
+    result_box.innerText = messages[is_member]
+
+    # Change the result color based on the lookup
+    result_box.classList.remove("success", "error")
+    result_box.classList.add({
+        True: "success",
+        False: "error"
+    }[is_member])
+
+# Run the function when the form is submitted
+document.querySelector("#candidate-form").addEventListener(
+    "submit", verify_candidate
+)
+    </py-script>
+
+</body>
+</html>
